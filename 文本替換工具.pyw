@@ -5,13 +5,19 @@ import os
 import pyperclip
 import base64
 import win32clipboard
+import sys
 
 # 創建主視窗
 window = tk.Tk()
 window.title("文本替換工具")
 
-# 定義icon.ico文件的路徑
-icon_path = "icon.ico"
+# 檢查是否在 PyInstaller 打包的環境中運行
+if getattr(sys, 'frozen', False):
+    # 獲取打包後的應用程序路徑
+    icon_path = os.path.join(sys._MEIPASS, "favicon.ico")
+else:
+    # 開發模式下的圖標路徑
+    icon_path = "favicon.ico"
 
 # 檢查圖標文件是否存在
 if os.path.exists(icon_path):
@@ -164,7 +170,7 @@ template_text_area.pack(padx=10, pady=10, fill=tk.BOTH, expand=True)  # 使用fi
 
 # 創建一個Frame小部件
 button_frame = tk.Frame(window)
-button_frame.pack(padx=10, pady=10, fill=tk.BOTH)
+button_frame.pack(padx=50, pady=10, fill=tk.BOTH)
 
 # 創建替換按鈕，放置在button_frame中，點擊後將處理結果複製到剪貼簿
 replace_button = tk.Button(button_frame, text="複製到剪貼簿", command=replace_and_copy_to_clipboard, height=3, bg="#444654", fg="white", cursor="hand2")
